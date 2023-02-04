@@ -6,8 +6,8 @@
 # Example: python3 loader.py main.py (.py is optional in name)
 
 import os
-stream = os.popen('pip install -r requirements.txt')
-print(stream.read())
+import pathlib
+os.system(f'pip install -r {pathlib.Path(__file__).parent.resolve()}/requirements.txt')
 
 if __name__ == "__main__":
     import sys
@@ -15,6 +15,7 @@ if __name__ == "__main__":
         file = sys.argv[1]
         if not file.endswith(".py"):
             file+=".py"
-        exec(open(file,encoding="utf-8").read())
+        os.system(f"python3 {pathlib.Path(__file__).parent.resolve()}/{file}")
     except IndexError:
         print("No main file to execute found.\nloader.py will not start a python file without this!")
+print("Script has quit. Loader.py will now exit.")
