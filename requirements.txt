@@ -1,0 +1,2 @@
+# Enter pip modules here to be auto installed.
+# Example: discord.py
