@@ -7,15 +7,20 @@
 
 import os
 import pathlib
+print("loader.py >>> Installing requirements.txt")
 os.system(f'pip install -r {pathlib.Path(__file__).parent.resolve()}/requirements.txt')
+print("loader.py >>> Completed installation of requirements.txt")
 
 if __name__ == "__main__":
     import sys
     try:
         file = sys.argv[1]
         if not file.endswith(".py"):
+            print("loader.py >>> File name did not end with \".py\". Adding...")
             file+=".py"
+        print(f"loader.py >>> Loading \"{file}\"...")
         os.system(f"python3 {pathlib.Path(__file__).parent.resolve()}/{file}")
     except IndexError:
-        print("No main file to execute found.\nloader.py will not start a python file without this!")
-print("Script has quit. Loader.py will now exit.")
+        print("loader.py >>> No file provided to load.")
+
+print("loader.py >>> Complete. Exiting...")
