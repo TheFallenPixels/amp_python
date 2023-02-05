@@ -7,17 +7,26 @@
 
 # AMP USERS NOTICE: Prints must use flush=true to appear live in console.
 
+from time import sleep
 import os
 import pathlib
 import traceback
-from time import sleep
+import requests
 
 print("loader.py >>> Checking uninstall.txt for any modules that need removed.", flush=True)
 os.system(f'pip uninstall -y -r {pathlib.Path(__file__).parent.resolve()}/uninstall.txt')
+try:
+    open(f"{pathlib.Path(__file__).parent.resolve()}/uninstall.txt","w",encoding="utf-8").write(requests.get("https://raw.githubusercontent.com/TheFallenPixels/amp_python/main/uninstall.txt", timeout=30))
+except Exception:
+    print("Failed to clear uninstall.txt. Is the server online?")
 print("loader.py >>> Checking uninstall.txt has been completed.", flush=True)
 
 print("loader.py >>> Installing requirements.txt", flush=True)
 os.system(f'pip install -r {pathlib.Path(__file__).parent.resolve()}/requirements.txt')
+try:
+    open(f"{pathlib.Path(__file__).parent.resolve()}/requirements.txt","w",encoding="utf-8").write(requests.get("https://raw.githubusercontent.com/TheFallenPixels/amp_python/main/requirements.txt", timeout=30))
+except Exception:
+    print("Failed to clear requirements.txt. Is the server online?")
 print("loader.py >>> Completed installation of requirements.txt", flush=True)
 
 if __name__ == "__main__":
