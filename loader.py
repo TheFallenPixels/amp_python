@@ -7,8 +7,11 @@
 
 # AMP USERS NOTICE: Prints must use flush=true to appear live in console.
 
-from time import sleep
 import os
+print("loader.py >>> Getting dependencies for loader.", flush=True)
+os.system('pip install -y requests')
+
+from time import sleep
 import pathlib
 import traceback
 import requests
