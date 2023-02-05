@@ -8,13 +8,17 @@
 # AMP USERS NOTICE: Prints must use flush=true to appear live in console.
 
 import os
-print("loader.py >>> Getting dependencies for loader.", flush=True)
-os.system('pip install -U requests')
-
 from time import sleep
 import pathlib
 import traceback
-import requests
+import sys
+
+try:
+    import requests
+except ModuleNotFoundError:
+    print("loader.py >>> Getting dependencies for loader.", flush=True)
+    os.system('pip install -U requests')
+    sys.exit()
 
 print("loader.py >>> Checking uninstall.txt for any modules that need removed.", flush=True)
 os.system(f'pip uninstall -y -r {pathlib.Path(__file__).parent.resolve()}/uninstall.txt')
@@ -33,7 +37,6 @@ except Exception:
 print("loader.py >>> Completed installation of requirements.txt", flush=True)
 
 if __name__ == "__main__":
-    import sys
     try:
         file = sys.argv[1]
         if not file.endswith(".py"):
