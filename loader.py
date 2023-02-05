@@ -9,6 +9,13 @@
 
 import os
 import pathlib
+import traceback
+from time import sleep
+
+print("loader.py >>> Checking uninstall.txt for any modules that need removed.", flush=True)
+os.system(f'pip uninstall -y -r {pathlib.Path(__file__).parent.resolve()}/uninstall.txt')
+print("loader.py >>> Checking uninstall.txt has been completed.", flush=True)
+
 print("loader.py >>> Installing requirements.txt", flush=True)
 os.system(f'pip install -r {pathlib.Path(__file__).parent.resolve()}/requirements.txt')
 print("loader.py >>> Completed installation of requirements.txt", flush=True)
@@ -21,8 +28,14 @@ if __name__ == "__main__":
             print("loader.py >>> File name did not end with \".py\". Adding...", flush=True)
             file+=".py"
         print(f"loader.py >>> Loading \"{file}\"...", flush=True)
-        exec(open(f'{pathlib.Path(__file__).parent.resolve()}/{file}').read())
+        try:
+            exec(open(f'{pathlib.Path(__file__).parent.resolve()}/{file}').read())
+        except Exception:
+            traceback.print_exc()
     except IndexError:
         print("loader.py >>> No file provided to load.", flush=True)
 
-print("loader.py >>> Complete. Exiting...", flush=True)
+print("loader.py >>> Script has been completed. To prevent AMP from looping this will not exit. You may hit stop when you are done.", flush=True)
+
+while True:
+    sleep(1)
