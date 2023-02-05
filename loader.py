@@ -9,7 +9,7 @@
 
 import os
 print("loader.py >>> Getting dependencies for loader.", flush=True)
-os.system('pip install -y requests')
+os.system('pip install -U requests')
 
 from time import sleep
 import pathlib
